@@ -21,34 +21,29 @@ public abstract class Vectors {
 		}
 	}
 
-	public static int doScalarMult(Vector a, Vector b) {
-		if (a == null || b == null || (a.getSize() != b.getSize())) {
-			throw new IllegalArgumentException();
-		}
-		int result = 0;
-		for (int i = 0; i < a.getSize(); i++) {
+	public static double doScalarMult(Vector a, Vector b) {
+		assert (a != null && b != null);
+		assert (a.length() == b.length());
+		double result = 0;
+		for (int i = 0; i < a.length(); i++) {
 			result += a.getValue(i) * b.getValue(i);
 		}
 		return result;
 	}
 
-	public static int calcAngle(Vector a, Vector b) {
-		if (a == null || b == null || (a.getSize() != b.getSize())) {
-			throw new IllegalArgumentException();
-		}
-		int angle = 0;
-		double cosA = (double)doScalarMult(a, b) / (a.calcModule() * b.calcModule());
-		System.out.println("CosA = " + cosA);
-		angle = (int) Math.toDegrees(Math.acos(cosA));
+	public static double calcAngle(Vector a, Vector b) {
+		assert (a != null && b != null);
+		assert (a.length() == b.length());
+		double angle = 0.0;
+		double cosA = doScalarMult(a, b) / (a.calcModule() * b.calcModule());
+		angle = Math.toDegrees(Math.acos(cosA));
 		return angle;
 	}
 
 	public static void initRandom(Vector v) {
-		if (v == null) {
-			throw new IllegalArgumentException();
-		}
-		for (int i = 0; i < v.getSize(); i++) {
-			v.setValue(i, (int) Math.round(Math.random() * 20.0) - 10);
+		assert v != null;
+		for (int i = 0; i < v.length(); i++) {
+			v.setValue(Math.round(Math.random() * 20.0) - 10.0, i);
 		}
 	}
 
